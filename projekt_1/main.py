@@ -71,10 +71,12 @@ shuff = shuffle(x_train[:100])
 fig, ax = plt.subplots(3, 3, figsize = (15, 15))
 axes = ax.flatten()
  
+'''
 for i in range(9):
     shu = cv2.threshold(shuff[i], 30, 200, cv2.THRESH_BINARY)
     axes[i].imshow(np.reshape(shuff[i], (28, 28)), cmap = 'Greys')
 plt.show()
+'''
  
  
  
@@ -120,12 +122,11 @@ history = my_model.fit(x_train, categorical_train, epochs = 1, validation_data =
 my_model.save("C:\\Users\\Szymon\\AIB\\projekt_1") #'C:\\Users\\monik\\OneDrive\\Pulpit\\AIB\\AIB\\projekt_1')
 
 letter = get_random_letter()
-print(letter)
 y, x = letter[0], letter[1:]
-print(y)
-print(x)
 img = np.reshape(x, (28,28))
-pred = word_dict[np.argmax(x)]
+predictions = my_model.predict(x)
+print(y)
+print(predictions)
 
 # for i, ax in enumerate(axes):
 #     img = np.reshape(im2, (28, 28))

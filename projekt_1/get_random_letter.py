@@ -6,5 +6,7 @@ def get_random_letter():
     with open(data_path, "r") as f:
         lines = [row for row in f]
 
-    i = randint(10000, 20000)
-    return lines[i]
+    rand = randint(10000, 20000)
+    lines = [lines[i].split(",") for i in range(len(lines))]
+    ret = [[int(line[i]) for i in range(len(line))] for line in lines]
+    return ret[rand]
