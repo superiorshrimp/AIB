@@ -124,9 +124,8 @@ my_model.save("C:\\Users\\Szymon\\AIB\\projekt_1") #'C:\\Users\\monik\\OneDrive\
 letter = get_random_letter()
 y, x = letter[0], letter[1:]
 img = np.reshape(x, (28,28))
-predictions = my_model.predict(x)
+my_model.predict(img)
 print(y)
-print(predictions)
 
 # for i, ax in enumerate(axes):
 #     img = np.reshape(im2, (28, 28))
