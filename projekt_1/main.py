@@ -18,8 +18,6 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset
 from keras.models import Sequential
 from keras.layers import Dense, Flatten, Conv2D, MaxPool2D, Dropout
-#from keras.optimizers import SGD, Adam
-#from tensorflow.keras.optimizers import SGD
 from keras import optimizers
 from keras.callbacks import ReduceLROnPlateau, EarlyStopping
 from keras.utils.np_utils import to_categorical
@@ -40,10 +38,33 @@ def letter_frequency(y):
     plt.show()
     
  
-# X = df.iloc[:,1:].values / 255
-# y = df.iloc[:,0].values
-#data_path = "D:\data\project_1\data.csv"
-data_path = "C:\\Users\\Szymon\\AIB\\projekt_1\\data_mini.csv"
+ 
+def print_sample_train_letter():
+    _, ax = plt.subplots(4, 4, figsize = (10, 10))
+    axes = ax.flatten()
+ 
+    for i in range(16):
+        shu = cv2.threshold(shuff[i], 30, 200, cv2.THRESH_BINARY)
+        axes[i].imshow(np.reshape(shuff[i], (28, 28)), cmap = 'Greys')
+    plt.show()
+    
+    
+def print_test_letters_and_pred():
+    _, axs = plt.subplots(4, 4, figsize = (10, 10))
+    axs = axs.flatten()
+
+    for i in range(16):
+        axs[i].imshow(np.reshape(x_test[i], (28, 28)),'Greys')
+
+        prediction = word_dict[np.argmax(categorical_test[i])]
+        axs[i].set_title("Prediction: " + prediction, fontsize = 18)
+    plt.show()
+
+
+    
+    
+ 
+data_path = "C:\\Users\\monik\\OneDrive\\Pulpit\\AIB2\\AIB\\data.csv"
 df = pd.read_csv(data_path, dtype = np.float32)
 df = df.sample(frac = 0.1)
  
@@ -53,7 +74,7 @@ y = df['0']
  
 #print_sample_letters(x)
  
-#letter_frequency(y)
+letter_frequency(y)
  
 word_dict = {
     0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'J',10:'K',11:'L',12:'M',13:'N',14:'O',15:'P',16:'Q',17:'R',18:'S',19:'T',20:'U',21:'V',22:'W',23:'X', 24:'Y',25:'Z'
@@ -64,20 +85,11 @@ x_train = np.reshape(x_train.values, (x_train.shape[0], 28, 28))
 x_test = np.reshape(x_test.values, (x_test.shape[0], 28, 28))
  
  
-plt.style.use('fivethirtyeight')
-plt.xkcd()
-
-''' 
 shuff = shuffle(x_train[:100])
-fig, ax = plt.subplots(3, 3, figsize = (15, 15))
-axes = ax.flatten()
- 
-for i in range(9):
-    shu = cv2.threshold(shuff[i], 30, 200, cv2.THRESH_BINARY)
-    axes[i].imshow(np.reshape(shuff[i], (28, 28)), cmap = 'Greys')
-plt.show()
-'''
 
+print_sample_train_letter()
+ 
+ 
 print('Train Data Shape:', x_train.shape)
 print('Test Data Shape:', x_test.shape)
  
@@ -116,30 +128,9 @@ my_model.add(Dense(26, activation = "softmax"))
  
 my_model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
 history = my_model.fit(x_train, categorical_train, epochs = 1, validation_data = (x_test, categorical_test))
+
+
  
-my_model.save("C:\\Users\\Szymon\\AIB\\projekt_1") #'C:\\Users\\monik\\OneDrive\\Pulpit\\AIB\\AIB\\projekt_1')
+my_model.save('C:\\Users\\monik\\OneDrive\\Pulpit\\AIB2\\AIB\\projekt_1')
 
-'''
-letter = get_random_letter()
-y, x = letter[0], letter[1:]
-img = np.reshape(x, (28,28))
-my_model.predict(img)
-print(y)
-'''
-
-plt.style.use('fivethirtyeight')
-plt.xkcd()
-
-fig, axes = plt.subplots(3, 3, figsize = (12, 15))
-axes = axes.flatten()
-
-for i, ax in enumerate(axes):
-    img = np.reshape(x_train[i], (28, 28))
-    ax.imshow(img, cmap = 'Greys')
-    
-    pred = word_dict[np.argmax(categorical_test[i])]
-    ax.set_title("Prediction: " + pred, fontsize = 20, fontweight = 'bold', color = 'red')
-    ax.grid()
-plt.show()
- 
-# model = keras.models.load_model('C:\\Users\\monik\\OneDrive\\Pulpit\\AIB\\AIB\\projekt_1\\saved_model.pb')
+print_test_letters_and_pred()
