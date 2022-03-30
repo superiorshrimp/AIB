@@ -1,6 +1,7 @@
 #link do zbioru danych: https://www.kaggle.com/datasets/sachinpatel21/az-handwritten-alphabets-in-csv-format
  
 #imports
+import random
 import time
 import numpy as np
 import pandas as pd 
@@ -18,10 +19,12 @@ from torch.utils.data import Dataset
 from keras.models import Sequential
 from keras.layers import Dense, Flatten, Conv2D, MaxPool2D, Dropout
 #from keras.optimizers import SGD, Adam
-# from tensorflow.keras.optimizers import SGD
+#from tensorflow.keras.optimizers import SGD
 from keras import optimizers
 from keras.callbacks import ReduceLROnPlateau, EarlyStopping
 from keras.utils.np_utils import to_categorical
+import cv2
+from get_random_letter import get_random_letter
  
 def print_sample_letters(X):
     _, plot = plt.subplots(2, 3)
@@ -40,7 +43,7 @@ def letter_frequency(y):
 # X = df.iloc[:,1:].values / 255
 # y = df.iloc[:,0].values
 #data_path = "D:\data\project_1\data.csv"
-data_path = "./projekt_1/data_mini.csv"
+data_path = "C:\\Users\\Szymon\\AIB\\projekt_1\\data_mini.csv"
 df = pd.read_csv(data_path, dtype = np.float32)
 df = df.sample(frac = 0.1)
  
@@ -114,20 +117,16 @@ my_model.add(Dense(26, activation = "softmax"))
 my_model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
 history = my_model.fit(x_train, categorical_train, epochs = 1, validation_data = (x_test, categorical_test))
  
-my_model.save('C:\\Users\\monik\\OneDrive\\Pulpit\\AIB\\AIB\\projekt_1')
- 
-# from PIL import Image 
-# import numpy as np
- 
-# im2 = Image.open('./projekt_1/b.png').convert('L')                  
-# im2 = np.array(im2) 
- 
-# plt.style.use('fivethirtyeight')
-# plt.xkcd()
- 
-# fig, axes = plt.subplots(3, 3, figsize = (12, 15))
-# axes = axes.flatten()
- 
+my_model.save("C:\\Users\\Szymon\\AIB\\projekt_1") #'C:\\Users\\monik\\OneDrive\\Pulpit\\AIB\\AIB\\projekt_1')
+
+letter = get_random_letter()
+print(letter)
+y, x = letter[0], letter[1:]
+print(y)
+print(x)
+img = np.reshape(x, (28,28))
+pred = word_dict[np.argmax(x)]
+
 # for i, ax in enumerate(axes):
 #     img = np.reshape(im2, (28, 28))
 #     ax.imshow(img, cmap = 'Greys')
