@@ -66,20 +66,18 @@ x_test = np.reshape(x_test.values, (x_test.shape[0], 28, 28))
  
 plt.style.use('fivethirtyeight')
 plt.xkcd()
- 
+
+''' 
 shuff = shuffle(x_train[:100])
 fig, ax = plt.subplots(3, 3, figsize = (15, 15))
 axes = ax.flatten()
  
-'''
 for i in range(9):
     shu = cv2.threshold(shuff[i], 30, 200, cv2.THRESH_BINARY)
     axes[i].imshow(np.reshape(shuff[i], (28, 28)), cmap = 'Greys')
 plt.show()
 '''
- 
- 
- 
+
 print('Train Data Shape:', x_train.shape)
 print('Test Data Shape:', x_test.shape)
  
@@ -121,20 +119,27 @@ history = my_model.fit(x_train, categorical_train, epochs = 1, validation_data =
  
 my_model.save("C:\\Users\\Szymon\\AIB\\projekt_1") #'C:\\Users\\monik\\OneDrive\\Pulpit\\AIB\\AIB\\projekt_1')
 
+'''
 letter = get_random_letter()
 y, x = letter[0], letter[1:]
 img = np.reshape(x, (28,28))
 my_model.predict(img)
 print(y)
+'''
 
-# for i, ax in enumerate(axes):
-#     img = np.reshape(im2, (28, 28))
-#     ax.imshow(img, cmap = 'Greys')
+plt.style.use('fivethirtyeight')
+plt.xkcd()
+
+fig, axes = plt.subplots(3, 3, figsize = (12, 15))
+axes = axes.flatten()
+
+for i, ax in enumerate(axes):
+    img = np.reshape(x_train[i], (28, 28))
+    ax.imshow(img, cmap = 'Greys')
     
-#     pred = word_dict[np.argmax(im2)]
-#     ax.set_title("Prediction: " + pred, fontsize = 20, fontweight = 'bold', color = 'red')
-#     ax.grid()
- 
-# plt.show()
+    pred = word_dict[np.argmax(categorical_test[i])]
+    ax.set_title("Prediction: " + pred, fontsize = 20, fontweight = 'bold', color = 'red')
+    ax.grid()
+plt.show()
  
 # model = keras.models.load_model('C:\\Users\\monik\\OneDrive\\Pulpit\\AIB\\AIB\\projekt_1\\saved_model.pb')
