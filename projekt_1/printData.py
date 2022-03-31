@@ -24,13 +24,6 @@ from get_random_letter import get_random_letter
 word_dict = {
     0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'J',10:'K',11:'L',12:'M',13:'N',14:'O',15:'P',16:'Q',17:'R',18:'S',19:'T',20:'U',21:'V',22:'W',23:'X', 24:'Y',25:'Z'
 }
-
-
-# def print_sample_letters(X):
-#     _, plot = plt.subplots(2, 3)
-#     for i in range(6):
-#         plot[i % 2][i // 2].imshow(Image.fromarray(255 * X[i].reshape(28, 28)))
-#     plt.show()
  
 def letter_frequency(y):
     counter = [0 for i in range(26)]
@@ -38,18 +31,15 @@ def letter_frequency(y):
         counter[int(letter)] += 1
     plot = plt.bar([i for i in range(26)], counter)
     plt.show()
-    
  
- 
-def print_sample_train_letter(shuff):
+def print_sample_train_letter(shuffled):
     _, ax = plt.subplots(4, 4, figsize = (10, 10))
     axes = ax.flatten()
  
     for i in range(16):
-        shu = cv2.threshold(shuff[i], 30, 200, cv2.THRESH_BINARY)
-        axes[i].imshow(np.reshape(shuff[i], (28, 28)), cmap = 'Greys')
+        shu = cv2.threshold(shuffled[i], 30, 200, cv2.THRESH_BINARY)
+        axes[i].imshow(np.reshape(shuffled[i], (28, 28)), cmap = 'Greys')
     plt.show()
-    
     
 def print_test_letters_and_pred(model, x_test, categorical_test):
     _, axs = plt.subplots(4, 4, figsize = (10, 10))
