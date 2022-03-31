@@ -64,7 +64,7 @@ def print_test_letters_and_pred():
     
     
  
-data_path = "C:\\Users\\monik\\OneDrive\\Pulpit\\AIB2\\AIB\\data.csv"
+data_path = "D:\Data\A_ZHandwrittenData.csv" # "C:\\Users\\monik\\OneDrive\\Pulpit\\AIB2\\AIB\\data.csv"
 df = pd.read_csv(data_path, dtype = np.float32)
 df = df.sample(frac = 0.1)
  
@@ -131,6 +131,6 @@ history = my_model.fit(x_train, categorical_train, epochs = 1, validation_data =
 
 
  
-my_model.save('C:\\Users\\monik\\OneDrive\\Pulpit\\AIB2\\AIB\\projekt_1')
+my_model.save(("C:\\Users\\Admin\\Desktop\\Studia\\IVsemestr\\Biol\\AIB\\projekt_1\\model.h5"))  #('C:\\Users\\monik\\OneDrive\\Pulpit\\AIB2\\AIB\\projekt_1')
 
 print_test_letters_and_pred()
