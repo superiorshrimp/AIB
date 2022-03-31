@@ -1,18 +1,11 @@
 import random
-import time
 import numpy as np
 import pandas as pd 
-import torch
 import keras
-from torch import optim
-import torch.nn as nn
 from PIL import Image
 from matplotlib import pyplot as plt
-import seaborn as sns
-import os
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
-from torch.utils.data import Dataset
 from keras.models import Sequential
 from keras.layers import Dense, Flatten, Conv2D, MaxPool2D, Dropout
 from keras import optimizers

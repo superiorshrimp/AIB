@@ -4,7 +4,6 @@ import pandas as pd
 import keras
 from PIL import Image
 from matplotlib import pyplot as plt
-import seaborn as sns
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
