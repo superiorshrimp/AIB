@@ -15,6 +15,79 @@ a_pattern = np.array([[0, 0, 1, 0, 0],
                       [1, 0, 0, 0, 1],
                       [1, 0, 0, 0, 1]])
 
+b_pattern = np.array([[1, 1, 0, 0, 0],
+                      [1, 0, 1, 0, 0],
+                      [1, 0, 1, 0, 0],
+                      [1, 1, 1, 0, 0],
+                      [1, 0, 0, 1, 0],
+                      [1, 0, 0, 1, 0],
+                      [1, 1, 1, 0, 0]])
+
+c_pattern = np.array([[0, 0, 1, 1, 1],
+                      [0, 1, 0, 0, 0],
+                      [1, 0, 0, 0, 0],
+                      [1, 0, 0, 0, 0],
+                      [1, 0, 0, 0, 0],
+                      [0, 1, 0, 0, 0],
+                      [0, 0, 1, 1, 1],])
+
+d_pattern = np.array([[1, 1, 1, 0, 0],
+                      [1, 0, 0, 1, 0],
+                      [1, 0, 0, 0, 1],
+                      [1, 0, 0, 0, 1],
+                      [1, 0, 0, 0, 1],
+                      [1, 0, 0, 1, 0],
+                      [1, 1, 1, 0, 0],])
+
+e_pattern = np.array([[1, 1, 1, 1, 1],
+                      [1, 0, 0, 0, 0],
+                      [1, 0, 0, 0, 0],
+                      [1, 1, 1, 1, 0],
+                      [1, 0, 0, 0, 0],
+                      [1, 0, 0, 0, 0],
+                      [1, 1, 1, 1, 1],])
+
+f_pattern = np.array([[1, 1, 1, 1, 1],
+                      [1, 0, 0, 0, 0],
+                      [1, 0, 0, 0, 0],
+                      [1, 1, 1, 1, 0],
+                      [1, 0, 0, 0, 0],
+                      [1, 0, 0, 0, 0],
+                      [1, 0, 0, 0, 0],])
+
+g_pattern = np.array([[0, 1, 1, 1, 0],
+                      [1, 0, 0, 0, 1],
+                      [1, 0, 0, 0, 0],
+                      [1, 0, 1, 1, 0],
+                      [1, 0, 0, 0, 1],
+                      [1, 0, 0, 0, 1],
+                      [0, 1, 1, 1, 0],])
+
+h_pattern = np.array([[1, 0, 0, 0, 1],
+                      [1, 0, 0, 0, 1],
+                      [1, 0, 0, 0, 1],
+                      [1, 1, 1, 1, 1],
+                      [1, 0, 0, 0, 1],
+                      [1, 0, 0, 0, 1],
+                      [1, 0, 0, 0, 1],])
+
+i_pattern = np.array([[0, 0, 1, 0, 0],
+                      [0, 0, 1, 0, 0],
+                      [0, 0, 1, 0, 0],
+                      [0, 0, 1, 0, 0],
+                      [0, 0, 1, 0, 0],
+                      [0, 0, 1, 0, 0],
+                      [0, 0, 1, 0, 0],])
+
+j_pattern = np.array([[0, 1, 1, 1, 0],
+                      [0, 0, 0, 1, 0],
+                      [0, 0, 0, 1, 0],
+                      [0, 0, 0, 1, 0],
+                      [0, 0, 0, 1, 0],
+                      [0, 1, 0, 1, 0],
+                      [0, 0, 1, 0, 0],])
+
+
 u_pattern = np.array([[1, 0, 0, 0, 1],
                       [1, 0, 0, 0, 1],
                       [1, 0, 0, 0, 1],
@@ -42,6 +115,33 @@ s_pattern = np.array([[1, 1, 1, 1, 1],
 a_pattern *= 2
 a_pattern -= 1
 
+b_pattern *= 2
+b_pattern -= 1
+
+c_pattern *= 2
+c_pattern -= 1
+
+d_pattern *= 2
+d_pattern -= 1
+
+e_pattern *= 2
+e_pattern -= 1
+
+f_pattern *= 2
+f_pattern -= 1
+
+g_pattern *= 2
+g_pattern -= 1
+
+h_pattern *= 2
+h_pattern -= 1
+
+i_pattern *= 2
+i_pattern -= 1
+
+j_pattern *= 2
+j_pattern -= 1
+
 u_pattern *= 2
 u_pattern -= 1
 
@@ -52,6 +152,14 @@ s_pattern *= 2
 s_pattern -= 1
 
 input_patterns = np.array([a_pattern.flatten(),
+                           b_pattern.flatten(),
+                           c_pattern.flatten(),
+                           d_pattern.flatten(),
+                           e_pattern.flatten(),
+                           f_pattern.flatten(),
+                           g_pattern.flatten(),
+                           h_pattern.flatten(),
+                           i_pattern.flatten(),
                            u_pattern.flatten(), 
                            t_pattern.flatten(),
                            s_pattern.flatten()])
