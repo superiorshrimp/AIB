@@ -192,5 +192,5 @@ _ = np.array([[0, 0, 0, 0, 0],
               [0, 0, 0, 0, 0],
               [0, 0, 0, 0, 0]])
 
-L = [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, R, S, T, U, W, Y, Z]
-L = [[[-1 if pixel == 0 else 1 for pixel in row] for row in letter] for letter in L]
+L = np.array([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, R, S, T, U, W, Y, Z])
+L = np.array([[[-1 if pixel == 0 else 1 for pixel in row] for row in letter] for letter in L])
