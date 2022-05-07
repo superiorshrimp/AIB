@@ -5,89 +5,29 @@ from matplotlib import pyplot as plt
 from net import HopfieldNetwork
 from trainers import train
 from letters import L
+from functions import get_sample
 
-input_patterns = np.array([letter.flatten() for letter in L])
+L = get_sample(L, 4)
 
 network = HopfieldNetwork(35)
+train(network, L)
 
-train(network, input_patterns)
+Test = []
+for l in range(len(L)):
+    Test.append(L[l])
+    for pixel in range(2):
+        Test[l][randint(0, 34)] *= -1
 
-# Create the test patterns by using the training patterns and adding some noise to them
-# and use the neural network to denoise them
-A_test = L[0].flatten()
-for i in range(2):
-    p = randint(0, 34)
-    A_test[p] *= -1
-    
-A_result = network.run(A_test)
+Result = []
+for l in range(len(L)):
+    Result.append(network.run(Test[l]))
+    Result[l].shape = (7, 5)
+    Test[l].shape = (7, 5)
 
-A_result.shape = (7, 5)
-A_test.shape = (7, 5)
-'''
-a_test = a_pattern.flatten()
+for l in range(len(L)):
+    plt.subplot(4, 2, 2*(l + 1) - 1)
+    plt.imshow(Test[l], cmap='gray')
+    plt.subplot(4, 2, 2*(l + 1))
+    plt.imshow(Result[l], cmap='gray')
 
-for i in range(2):
-    p = randint(0, 34)
-    a_test[p] *= -1
-
-a_result = network.run(a_test)
-
-a_result.shape = (7, 5)
-a_test.shape = (7, 5)
-
-u_test = u_pattern.flatten()
-
-for i in range(2):
-    p = randint(0, 34)
-    u_test[p] *= -1
-
-u_result = network.run(u_test)
-
-u_result.shape = (7, 5)
-u_test.shape = (7, 5)
-
-t_test = t_pattern.flatten()
-
-for i in range(2):
-    p = randint(0, 34)
-    t_test[p] *= -1
-
-t_result = network.run(t_test)
-
-t_result.shape = (7, 5)
-t_test.shape = (7, 5)
-
-s_test = s_pattern.flatten()
-
-for i in range(2):
-    p = randint(0, 34)
-    s_test[p] *= -1
-
-s_result = network.run(s_test)
-
-s_result.shape = (7, 5)
-s_test.shape = (7, 5)
-'''
-
-# Show the results
-plt.subplot(4, 2, 1)
-plt.imshow(A_test, cmap='gray')
-plt.subplot(4, 2, 2)
-plt.imshow(A_result, cmap='gray')
-'''
-plt.subplot(4, 2, 3)
-plt.imshow(u_test, cmap='gray')
-plt.subplot(4, 2, 4)
-plt.imshow(u_result, cmap='gray')
-
-plt.subplot(4, 2, 5)
-plt.imshow(t_test, cmap='gray')
-plt.subplot(4, 2, 6)
-plt.imshow(t_result, cmap='gray')
-
-plt.subplot(4, 2, 7)
-plt.imshow(s_test, cmap='gray')
-plt.subplot(4, 2, 8)
-plt.imshow(s_result, cmap='gray')
-'''
 plt.show()
