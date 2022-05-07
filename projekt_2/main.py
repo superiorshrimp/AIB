@@ -9,6 +9,12 @@ from functions import get_sample
 
 L = get_sample(L, 4)
 
+for l in range(len(L)):
+    plt.subplot(4, 3, 1 + 3*l)
+    to_show = []
+    to_show.append(L[l].reshape(7, 5))
+    plt.imshow(to_show[-1], cmap='gray')
+
 network = HopfieldNetwork(35)
 train(network, L)
 
@@ -25,9 +31,9 @@ for l in range(len(L)):
     Test[l].shape = (7, 5)
 
 for l in range(len(L)):
-    plt.subplot(4, 2, 2*(l + 1) - 1)
+    plt.subplot(4, 3, 3*l + 2)
     plt.imshow(Test[l], cmap='gray')
-    plt.subplot(4, 2, 2*(l + 1))
+    plt.subplot(4, 3, 3*l + 3)
     plt.imshow(Result[l], cmap='gray')
 
 plt.show()
