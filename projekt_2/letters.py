@@ -3,8 +3,8 @@ from random import randint
 import numpy as np
 from matplotlib import pyplot as plt
 
-from src.hopfieldnet.net import HopfieldNetwork
-from src.hopfieldnet.trainers import hebbian_training
+from net import HopfieldNetwork
+from trainers import hebbian_training
 
 # Create the training patterns
 a_pattern = np.array([[0, 0, 1, 0, 0],
