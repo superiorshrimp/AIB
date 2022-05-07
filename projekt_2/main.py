@@ -1,15 +1,13 @@
 from random import randint
-
 import numpy as np
 from matplotlib import pyplot as plt
 
 from net import HopfieldNetwork
-from trainers import hebbian_training
+from trainers import train
 from letters import L
 
 input_patterns = np.array([letter.flatten() for letter in L])
 
-# Create the neural network and train it using the training patterns
 network = HopfieldNetwork(35)
 
 hebbian_training(network, input_patterns)
