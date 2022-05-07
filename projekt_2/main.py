@@ -10,7 +10,7 @@ input_patterns = np.array([letter.flatten() for letter in L])
 
 network = HopfieldNetwork(35)
 
-hebbian_training(network, input_patterns)
+train(network, input_patterns)
 
 # Create the test patterns by using the training patterns and adding some noise to them
 # and use the neural network to denoise them
