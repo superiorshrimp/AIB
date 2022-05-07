@@ -1,95 +1,196 @@
-from random import randint
-
 import numpy as np
-from matplotlib import pyplot as plt
 
-from net import HopfieldNetwork
-from trainers import hebbian_training
-from temp import L
+A = np.array([[0, 0, 1, 0, 0],
+              [0, 1, 0, 1, 0],
+              [1, 0, 0, 0, 1],
+              [1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1]])
 
-input_patterns = np.array([letter.flatten() for letter in L])
+B = np.array([[1, 1, 0, 0, 0],
+              [1, 0, 1, 0, 0],
+              [1, 0, 1, 0, 0],
+              [1, 1, 1, 0, 0],
+              [1, 0, 0, 1, 0],
+              [1, 0, 0, 1, 0],
+              [1, 1, 1, 0, 0]])
 
-# Create the neural network and train it using the training patterns
-network = HopfieldNetwork(35)
+C = np.array([[0, 0, 1, 1, 1],
+              [0, 1, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [0, 1, 0, 0, 0],
+              [0, 0, 1, 1, 1],])
 
-hebbian_training(network, input_patterns)
+D = np.array([[1, 1, 1, 0, 0],
+              [1, 0, 0, 1, 0],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 1, 0],
+              [1, 1, 1, 0, 0],])
 
-# Create the test patterns by using the training patterns and adding some noise to them
-# and use the neural network to denoise them
-A_test = L[0].flatten()
-for i in range(2):
-    p = randint(0, 34)
-    A_test[p] *= -1
-    
-A_result = network.run(A_test)
+E = np.array([[1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 1, 1, 1, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 1, 1, 1, 1],])
 
-A_result.shape = (7, 5)
-A_test.shape = (7, 5)
-'''
-a_test = a_pattern.flatten()
+F = np.array([[1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 1, 1, 1, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],])
 
-for i in range(2):
-    p = randint(0, 34)
-    a_test[p] *= -1
+G = np.array([[0, 1, 1, 1, 0],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 0],
+              [1, 0, 1, 1, 0],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [0, 1, 1, 1, 0],])
 
-a_result = network.run(a_test)
+H = np.array([[1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],])
 
-a_result.shape = (7, 5)
-a_test.shape = (7, 5)
+I = np.array([[0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0]])
 
-u_test = u_pattern.flatten()
+J = np.array([[1, 1, 1, 1, 1],
+              [0, 0, 0, 0, 1],
+              [0, 0, 0, 0, 1],
+              [0, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [0, 1, 0, 1, 0],
+              [0, 0, 1, 0, 0]])
 
-for i in range(2):
-    p = randint(0, 34)
-    u_test[p] *= -1
+K = np.array([[1, 0, 0, 0, 1],
+              [1, 0, 0, 1, 0],
+              [1, 0, 1, 0, 0],
+              [1, 1, 0, 0, 0],
+              [1, 0, 1, 0, 0],
+              [1, 0, 0, 1, 0],
+              [1, 0, 0, 0, 1]])
 
-u_result = network.run(u_test)
+L = np.array([[1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 1, 1, 1, 1]])
 
-u_result.shape = (7, 5)
-u_test.shape = (7, 5)
+M = np.array([[1, 0, 0, 0, 1],
+              [1, 1, 0, 1, 1],
+              [1, 0, 1, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1]])
+ 
+N = np.array([[1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 1, 0, 0, 1],
+              [1, 0, 1, 0, 1],
+              [1, 0, 0, 1, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1]])
 
-t_test = t_pattern.flatten()
+O = np.array([[1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 1, 1, 1, 1]])
 
-for i in range(2):
-    p = randint(0, 34)
-    t_test[p] *= -1
+P = np.array([[1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0]])
 
-t_result = network.run(t_test)
+R = np.array([[0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0]])
 
-t_result.shape = (7, 5)
-t_test.shape = (7, 5)
+S = np.array([[1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 0],
+              [0, 1, 0, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 0, 1, 0],
+              [0, 0, 0, 0, 1],
+              [1, 1, 1, 1, 1]])
 
-s_test = s_pattern.flatten()
+T = np.array([[1, 1, 1, 1, 1],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0]])
 
-for i in range(2):
-    p = randint(0, 34)
-    s_test[p] *= -1
+U = np.array([[1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 1, 1, 1, 1]])
 
-s_result = network.run(s_test)
+W = np.array([[1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 0, 0, 1],
+              [1, 0, 1, 0, 1],
+              [1, 1, 0, 1, 1],
+              [1, 0, 0, 0, 1]])
 
-s_result.shape = (7, 5)
-s_test.shape = (7, 5)
-'''
+Y = np.array([[1, 0, 0, 0, 1],
+              [0, 1, 0, 1, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0],
+              [0, 0, 1, 0, 0]])
 
-# Show the results
-plt.subplot(4, 2, 1)
-plt.imshow(A_test, cmap='gray')
-plt.subplot(4, 2, 2)
-plt.imshow(A_result, cmap='gray')
-'''
-plt.subplot(4, 2, 3)
-plt.imshow(u_test, cmap='gray')
-plt.subplot(4, 2, 4)
-plt.imshow(u_result, cmap='gray')
+Z = np.array([[1, 1, 1, 1, 1],
+              [0, 0, 0, 0, 1],
+              [0, 0, 0, 1, 0],
+              [0, 0, 1, 0, 0],
+              [0, 1, 0, 0, 0],
+              [1, 0, 0, 0, 0],
+              [1, 1, 1, 1, 1]])
 
-plt.subplot(4, 2, 5)
-plt.imshow(t_test, cmap='gray')
-plt.subplot(4, 2, 6)
-plt.imshow(t_result, cmap='gray')
+_ = np.array([[0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0]])
 
-plt.subplot(4, 2, 7)
-plt.imshow(s_test, cmap='gray')
-plt.subplot(4, 2, 8)
-plt.imshow(s_result, cmap='gray')
-'''
-plt.show()
+L = np.array([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, R, S, T, U, W, Y, Z])
+L = np.array([[[-1 if pixel == 0 else 1 for pixel in row] for row in letter] for letter in L])
