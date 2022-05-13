@@ -10,12 +10,13 @@ from trainers import train
 from letters import L
 from functions import get_sample
 
+n = 8
 
 """
-L = get_sample(L, 4)
+L = get_sample(L, n)
 
 for l in range(len(L)):
-    plt.subplot(4, 3, 1 + 3*l)
+    plt.subplot(n, 3, 1 + 3*l)
     to_show = []
     to_show.append(L[l].reshape(7, 5))
     plt.imshow(to_show[-1], cmap='gray')
@@ -26,7 +27,7 @@ train(network, L)
 Test = []
 for l in range(len(L)):
     Test.append(L[l])
-    for pixel in range(2):
+    for pixel in range(5):
         Test[l][randint(0, 34)] *= -1
 
 Result = []
@@ -36,17 +37,17 @@ for l in range(len(L)):
     Test[l].shape = (7, 5)
 
 for l in range(len(L)):
-    plt.subplot(4, 3, 3*l + 2)
+    plt.subplot(n, 3, 3*l + 2)
     plt.imshow(Test[l], cmap='gray')
-    plt.subplot(4, 3, 3*l + 3)
+    plt.subplot(n, 3, 3*l + 3)
     plt.imshow(Result[l], cmap='gray')
 
 plt.show()
 """
-L = get_sample(L, 15)
+L = get_sample(L, n)
 
-for l in range(4):
-    plt.subplot(4, 3, 1 + 3*l)
+for l in range(n):
+    plt.subplot(n, 3, 1 + 3*l)
     to_show = []
     to_show.append(L[l].reshape(7, 5))
     plt.imshow(to_show[-1], cmap='gray')
@@ -55,26 +56,27 @@ network = ModernHopfieldNetwork(35)
 network.set_patterns(L)
 
 Test = []
-for l in range(4):
+for l in range(n):
     test = copy.deepcopy(L[l])
     test.flatten()
     print(test)
     Test.append(test)
-    for pixel in range(4):
+    for pixel in range(5):
         Test[l][randint(0, 34)] *= -1
 
 Result = []
-for l in range(4):
+for l in range(n):
     Result.append(network.run(Test[l]))
     Result[l].shape = (7, 5)
     Test[l].shape = (7, 5)
     print(Test[l])
     print(Result[l])
 
-for l in range(4):
-    plt.subplot(4, 3, 3*l + 2)
+for l in range(n):
+    plt.subplot(n, 3, 3*l + 2)
     plt.imshow(Test[l], cmap='gray')
-    plt.subplot(4, 3, 3*l + 3)
+    plt.subplot(n, 3, 3*l + 3)
     plt.imshow(Result[l], cmap='gray')
 
 plt.show()
+# """
