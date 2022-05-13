@@ -20,17 +20,17 @@ class ModernHopfieldNetwork(object):
         xPatterns = copy.deepcopy(pattern)
         yPatterns = copy.deepcopy(pattern)
         randomNumber = random.sample(range(0,len(yPatterns)), len(yPatterns))
-        print(randomNumber)
+        #print(randomNumber)
 
         for x in range(0, len(randomNumber)):
             xPatterns[randomNumber[x]] = 1
             e1 = self.calculate_hopfield_energy(xPatterns)
             xPatterns[randomNumber[x]] = -1
             e2 = self.calculate_hopfield_energy(xPatterns)
-            print(randomNumber[x], e1, e2)
+            #print(randomNumber[x], e1, e2)
             xPatterns[randomNumber[x]] = pattern[randomNumber[x]]
             yPatterns[randomNumber[x]] = sgn( -1 * e1 + e2)
-            print(self.calculate_hopfield_energy(yPatterns))
+            #print(self.calculate_hopfield_energy(yPatterns))
 
         return yPatterns
 
