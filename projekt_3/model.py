@@ -1,15 +1,9 @@
-
 from xml.etree.ElementTree import C14NWriterTarget
 import math
 import numpy as np
 import random
 from F_goal import F_goal
-
-no_area = int(input('Podaj ilosc przeszukiwanych obszarow (populacja pszczol): '))
-first_location = int (input('Podaj okres losowania rozmieszczenia pojemnikow (1-10 zalecane): '))
-neighbour = int(input('Podaj wielkosc sasiedztwa przeszukiwania: '))
-no_iteration = int(input('Podaj ilosc iteracji: '))
-no_tries = int(input('Podaj ilosc prob zmian jednego wektora: '))
+import matplotlib.pyplot as plt
 
 W = [[100, 25, 65],
     [200, 23, 8],
@@ -24,58 +18,61 @@ W = [[100, 25, 65],
     [945, 84, 4],
     [967, 34, 23]]
 
+def draw_plot(W):
+    plt.xlim(0,100)
+    plt.ylim(0,100)
+    plt.scatter(x = [el[1] for el in W], y = [el[2] for el in W], s = [el[0] for el in W])
+    plt.show()
 
-def create_matric_c():
+def set_parameters(no_area = 10, first_location = 7, neighbour = 3, no_iteration = 10000, no_tries = 100):
+    #no_area = ilość przeszukiwanych obszarów (populacja pszczół)
+    #first_location = okres losowania rozmieszczenia pojemników (zalecane 1-10)
+    #neighbour = wielkość sąsiedztwa przeszukiwania
+    #no_iteration = ilość iteracji
+    #no_tries = ilość prób zmian jednego wektora
+    return no_area, first_location, neighbour, no_iteration, no_tries
+
+def create_matrix_c(no_area, first_location):
     C = np.zeros( (no_area, 6) )
     for i in range(no_area):
-            for j in range(6):
-                C[i][j] = first_location*int(random.randrange(1,10))
-                
+        for j in range(6):
+            C[i][j] = first_location*int(random.randrange(1,10))     
     return C
 
 def find_max_F_idx(F):
-    K = [0]*len(F)
-    
-    for i in range(len(F)):
-       K[i] = ((F[i],i))
-    
+    K = [(F[i],i) for i in range(len(F))]
     K.sort()
     K.reverse()
     return K[0][1]
 
 def find_next_idx(F,which):
-    K = [0]*len(F)
-    
-    for i in range(len(F)):
-       K[i] = ((F[i],i))
-    
+    K = [(F[i],i) for i in range(len(F))]
     K.sort()
     K.reverse()
     
     i = 0
     while K[i][1] not in which:
-        i+=1
+        i += 1
      
     return K[i][1]
 
-def change_vector_c_with_neighbour(vec):
+def change_vector_c_with_neighbour(neighbour, vec):
     for i in range(len(vec)):
         d = int(random.randrange(-neighbour,neighbour+1))
         vec[i] = vec[i] + d
-        if (vec[i]< 1): vec[i] = 1
-        if (vec[i]>100): vec[i] = 100
+        if vec[i]<1:
+            vec[i] = 1
+        elif vec[i]>100:
+            vec[i] = 100
     return vec
 
-
-def find_solution(vector_c,F_old,idx):
+def find_solution(neighbour, no_area, no_iteration, vector_c,F_old,idx):
     which_time = 0
     which_solution = [idx]
 
     for i in range(no_iteration):
-        change_vector_c = change_vector_c_with_neighbour(vector_c)
+        change_vector_c = change_vector_c_with_neighbour(neighbour, vector_c)
         F_new = F_goal(W,change_vector_c,no_area,1)
-        # print(F_old)
-        # print(F_new)
 
         if F_old < F_new:
             F_old = F_new
@@ -87,24 +84,17 @@ def find_solution(vector_c,F_old,idx):
             which_time = 0
             idx = find_next_idx(F,which_solution)
             which_solution.append(idx)
-            vector_c = C[idx]
-            
-        
+            vector_c = C[idx]        
     return F_old
 
-
-C = create_matric_c()
-#print(C)
-F = F_goal(W,C,no_area,0)
-#print(F)
-idx = find_max_F_idx(F)
-#print(idx)
-F_old = F[idx]
-vector_c = C[idx]
-#print("Pierwszy")
-#print(vector_c)
-
-#print("Ostatniiii")
-#print(vector_c)
-F_old = find_solution(vector_c,F_old,idx)
-print(F_old)
+if __name__ == "__main__":
+    no_area, first_location, neighbour, no_iteration, no_tries = set_parameters()
+    draw_plot(W)
+    
+    C = create_matrix_c(no_area, first_location)
+    F = F_goal(W,C,no_area,0)
+    idx = find_max_F_idx(F)
+    F_old = F[idx]
+    vector_c = C[idx]
+    F_old = find_solution(neighbour, no_area, no_iteration, vector_c,F_old,idx)
+    print(F_old)
