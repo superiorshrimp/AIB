@@ -13,18 +13,15 @@ def K_m(W,C,i,no_area,flag):
             sum_3 = k_j(C[j][4],C[j][5],W,i)
 
             suma[j] = sum_1 + sum_2 + sum_3
-            if suma[j] >  W[i][0]:
-                suma[j] = W[i][0]
-            
+            if suma[j] > W[i][0]:
+                suma[j] = W[i][0] 
     else:
         sum_1 =  k_j(C[0],C[1],W,i)
         sum_2 =  k_j(C[2],C[3],W,i)
         sum_3 = k_j(C[4],C[5],W,i)
 
-
         suma = sum_1 + sum_2 + sum_3
-        if suma >  W[i][0]:
+        if suma > W[i][0]:
             suma = W[i][0]
-
 
     return suma
