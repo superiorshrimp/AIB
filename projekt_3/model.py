@@ -31,7 +31,14 @@ def draw_results(W, v):
     plt.scatter(x = [el for el in v[::2]], y = [el for el in v[1::2]])
     plt.show()
 
-def set_parameters(no_area = 10, first_location = 7, neighbour = 3, no_iteration = 10000, no_tries = 100):
+def draw_state(W, v):
+    plt.xlim(0,100)
+    plt.ylim(0,100)
+    plt.scatter(x = [el[1] for el in W], y = [el[2] for el in W], s = [el[0] for el in W])
+    plt.scatter(x = [el for el in v[::2]], y = [el for el in v[1::2]])
+    plt.show()
+
+def set_parameters(no_area = 10, first_location = 7, neighbour = 3, no_iteration = 1000, no_tries = 100):
     #no_area = ilość przeszukiwanych obszarów (populacja pszczół)
     #first_location = okres losowania rozmieszczenia pojemników (zalecane 1-10)
     #neighbour = wielkość sąsiedztwa przeszukiwania
@@ -80,7 +87,7 @@ def find_solution(neighbour, no_area, no_iteration, vector_c,F_old,idx):
     for i in range(no_iteration):
         change_vector_c = change_vector_c_with_neighbour(neighbour, vector_c)
         F_new = F_goal(W,change_vector_c,no_area,1)
-
+        
         if F_old < F_new:
             F_old = F_new
             vector_c = change_vector_c
@@ -92,8 +99,11 @@ def find_solution(neighbour, no_area, no_iteration, vector_c,F_old,idx):
             idx = find_next_idx(F,which_solution)
             which_solution.append(idx)
             vector_c = C[idx]
+            
+        #if i%100 == 0:
+        #    draw_state(W, vector_c)
     
-    return F_old
+    return F_old, vector_c
 
 if __name__ == "__main__":
     no_area, first_location, neighbour, no_iteration, no_tries = set_parameters()
@@ -104,7 +114,8 @@ if __name__ == "__main__":
     idx = find_max_F_idx(F)
     F_old = F[idx]
     vector_c = C[idx]
-    F_old = find_solution(neighbour, no_area, no_iteration, vector_c,F_old,idx)
+    
+    F_old, vector_c = find_solution(neighbour, no_area, no_iteration, vector_c,F_old,idx)
     
     print(F_old)
     draw_results(W, vector_c)
