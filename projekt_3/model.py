@@ -115,6 +115,7 @@ if __name__ == "__main__":
     F_old = F[idx]
     vector_c = C[idx]
     
+    print(F_old)
     F_old, vector_c = find_solution(neighbour, no_area, no_iteration, vector_c,F_old,idx)
     
     print(F_old)
